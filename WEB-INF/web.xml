@@ -1,0 +1,101 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+	
+	<!-- 
+		filter example 
+	-->
+	<filter>
+		<filter-name>Filter_1</filter-name>
+		<filter-class>com.zeugor.ocejwcd.filters.Filter1</filter-class>
+		<init-param>
+			<param-name>attribute</param-name>
+			<param-value>attr_filter1</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Filter_1</filter-name>
+		<url-pattern>/FilterTest</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>Filter_2</filter-name>
+		<filter-class>com.zeugor.ocejwcd.filters.Filter2</filter-class>
+		<init-param>
+			<param-name>attribute</param-name>
+			<param-value>attr_filter2</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Filter_2</filter-name>
+		<url-pattern>/IncludeFilterServletTest</url-pattern>
+		<dispatcher>INCLUDE</dispatcher>		
+	</filter-mapping>	
+	<filter-mapping>
+		<filter-name>Filter_2</filter-name>
+		<url-pattern>/ForwardFilterServletTest</url-pattern>
+		<dispatcher>FORWARD</dispatcher>	
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Filter_2</filter-name>
+		<url-pattern>/ErrorFilterServletTest</url-pattern>
+		<dispatcher>Error</dispatcher>	
+	</filter-mapping>
+
+
+	<servlet>
+		<servlet-name>FilterTest</servlet-name>
+		<servlet-class>com.zeugor.ocejwcd.servlets.FilterServletTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FilterTest</servlet-name>
+		<url-pattern>/FilterTest</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DispatherFilterServletTest</servlet-name>
+		<servlet-class>com.zeugor.ocejwcd.servlets.DispatherFilterServletTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DispatherFilterServletTest</servlet-name>
+		<url-pattern>/IncludeFilterServletTest</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DispatherFilterServletTest</servlet-name>
+		<url-pattern>/ForwardFilterServletTest</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DispatherFilterServletTest</servlet-name>
+		<url-pattern>/ErrorFilterServletTest</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>DispatherFilterServletTest</servlet-name>
+		<url-pattern>/GenericErrorFilterServletTest</url-pattern>
+	</servlet-mapping>	
+
+	
+
+	<!-- exception-type related error pages -->
+	<error-page>
+	    <exception-type>
+	          java.lang.Exception
+	    </exception-type >
+	    <location>/GenericErrorFilterServletTest</location>
+	</error-page>
+	<!--
+	<error-page>
+	    <exception-type>
+	          javax.servlet.ServletException
+	    </exception-type >
+	    <location>/ErrorFilterServletTest</location>
+	</error-page>
+	-->
+	<!-- 
+		END-filter example 
+	-->	
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+</web-app>
