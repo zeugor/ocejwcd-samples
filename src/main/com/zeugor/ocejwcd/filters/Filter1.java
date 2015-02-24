@@ -1,16 +1,29 @@
 package com.zeugor.ocejwcd.filters;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
-import javax.servlet.FilterChain;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 import java.io.*;
+
+class CharResponseWrapper extends HttpServletResponseWrapper {
+    private CharArrayWriter output;
+
+    public String toString() {
+        return output.toString();
+    }
+      
+    public CharResponseWrapper(HttpServletResponse response) {
+        super(response);
+        output = new CharArrayWriter();
+    }
+
+    public PrintWriter getWriter() {
+        return new PrintWriter(output);
+    }
+
+}
+
 
 public class Filter1 implements Filter {
 	private FilterConfig filterConfig;
@@ -26,6 +39,7 @@ public class Filter1 implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) 
 			throws IOException, ServletException {
+try {
 		System.out.println(">> Filter1->doFilter->before");
 		if (attribute != null) {
 			req.setAttribute("attribute", attribute);
@@ -36,16 +50,33 @@ public class Filter1 implements Filter {
 		}
 
 		// manipulate the 'resp' object after calling FilterChain.doFilter(req, resp)
-		chain.doFilter(req, resp);
-		System.out.println(">> Filter1->doFilter->after");
+		CharResponseWrapper wrapper = 
+			new CharResponseWrapper((HttpServletResponse)resp);
+
+		try {
+			throw new UnavailableException("ahhhhh!"); 
+		} catch(UnavailableException e ) {
+			System.out.println("permanent: " + e.isPermanent());
+		}
+
+
+			RequestDispatcher rd = req.getRequestDispatcher("/ForwardFilterServletTest");		
+			rd.forward(req, resp);
+		
+		//chain.doFilter(req, wrapper);
+		//resp.getWriter().println(wrapper.toString());
+		resp.getWriter().println("<compress></compress>");
 		/*try {
 			resp.reset();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}*/
-		PrintWriter out = resp.getWriter();
-		out.println("Filter_1->after chain.doFilter");
+		//PrintWriter out = resp.getWriter();
+		//out.println("Filter_1->after chain.doFilter");
+	} catch(Exception e) {
+		e.printStackTrace();
 	}
+} 
 
 	@Override
 	public void destroy() {

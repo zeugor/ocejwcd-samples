@@ -18,6 +18,10 @@
 		<filter-name>Filter_1</filter-name>
 		<url-pattern>/FilterTest</url-pattern>
 	</filter-mapping>
+	<filter-mapping>
+		<filter-name>Filter_1</filter-name>
+		<url-pattern>/index.html</url-pattern>
+	</filter-mapping>	
 
 	<filter>
 		<filter-name>Filter_2</filter-name>
@@ -74,12 +78,13 @@
 		<url-pattern>/GenericErrorFilterServletTest</url-pattern>
 	</servlet-mapping>	
 
+
 	
 
 	<!-- exception-type related error pages -->
 	<error-page>
 	    <exception-type>
-	          java.lang.Exception
+	          java.lang.UnavailableException
 	    </exception-type >
 	    <location>/GenericErrorFilterServletTest</location>
 	</error-page>
