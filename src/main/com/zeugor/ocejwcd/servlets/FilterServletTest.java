@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import java.io.*;
 
 public  class FilterServletTest extends HttpServlet {
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
+	protected void doGet2(HttpServletRequest req, HttpServletResponse resp) 
 			throws IOException, ServletException {
 		PrintWriter out = resp.getWriter();
 		out.println(" - FilterServletTest => type: " + req.getAttribute("type") );
@@ -56,4 +56,20 @@ public  class FilterServletTest extends HttpServlet {
 		}
 
 	}
+
+
+public void doGet(HttpServletRequest request,
+                  HttpServletResponse response)
+                  throws ServletException, IOException {
+    response.getWriter().print('a');
+    //response.getWriter().flush();
+    request.getRequestDispatcher("hello.jsp").forward(request, response);
+    //response.getWriter().print('a');
+    //response.getWriter().close();
+   response.getWriter().flush(); 
+response.getWriter().close();    
+
+}
+
+
 }

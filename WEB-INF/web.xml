@@ -6,6 +6,7 @@
 	<!-- 
 		filter example 
 	-->
+	<!--
 	<filter>
 		<filter-name>Filter_1</filter-name>
 		<filter-class>com.zeugor.ocejwcd.filters.Filter1</filter-class>
@@ -46,7 +47,7 @@
 		<url-pattern>/ErrorFilterServletTest</url-pattern>
 		<dispatcher>Error</dispatcher>	
 	</filter-mapping>
-
+-->
 
 	<servlet>
 		<servlet-name>FilterTest</servlet-name>
@@ -56,6 +57,25 @@
 		<servlet-name>FilterTest</servlet-name>
 		<url-pattern>/FilterTest</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Source</servlet-name>
+		<servlet-class>com.zeugor.ocejwcd.servlets.Source</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Source</servlet-name>
+		<url-pattern>/source</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Target</servlet-name>
+		<servlet-class>com.zeugor.ocejwcd.servlets.Target</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Target</servlet-name>
+		<url-pattern>/target</url-pattern>
+	</servlet-mapping>
+
 
 	<servlet>
 		<servlet-name>DispatherFilterServletTest</servlet-name>
@@ -103,4 +123,33 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+
+
+    <!-- security -->
+<!--
+	<security-role>
+		<role-name>role1</role-name>
+	</security-role>
+-->
+	<!--
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+-->
+	<!--
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>
+				Example-Security
+			</web-resource-name>
+			<url-pattern>
+				/*	
+			</url-pattern>
+			<http-method>GET</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>role1</role-name>
+		</auth-constraint>
+	</security-constraint>
+-->
 </web-app>

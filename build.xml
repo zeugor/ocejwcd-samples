@@ -21,9 +21,6 @@
 	
 	<target name="dev.compile" depends="dev.init">
         <path id="master-classpath">
-          <fileset dir="${dev.lib.dir}">
-            <include name="*.jar"/>
-          </fileset>
           <fileset dir="${local.tomcat.lib.dir}">
             <include name="*.jar"/>
           </fileset>
@@ -61,12 +58,6 @@
         <copy todir="${local.dir}">
             <fileset dir="">
                 <include name="*.html"/>
-            </fileset>
-        </copy>
-
-         <copy todir="${local.lib.dir}">
-            <fileset dir="${dev.lib.dir}">
-                <include name="**"/>
             </fileset>
         </copy>
 
